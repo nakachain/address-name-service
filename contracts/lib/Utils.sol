@@ -2,7 +2,11 @@ pragma solidity ^0.5.4;
 
 library Utils {
     function validateNotHex(bytes memory b) internal pure returns (bool) {
-        return b[0] != 0x30 && b[1] != 0x78;
+        // Check length before trying to access at index
+        if (b.length >= 2) {
+            return b[0] != 0x30 && b[1] != 0x78;
+        }
+        return true;
     }
 
     function validateLettersAndNumbers(bytes memory b) internal pure returns (bool) {

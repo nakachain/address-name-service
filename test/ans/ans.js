@@ -9,7 +9,7 @@ const ANS = artifacts.require('ANS')
 
 const web3 = global.web3
 
-contract('ANS', (accounts) => {
+contract.only('ANS', (accounts) => {
   const { OWNER, ACCT1, INVALID_ADDR, MAX_GAS } = getConstants(accounts)
   const ERR_ONLY_OWNER = 'Owner is only allowed to call this method.'
   const ERR_VALID_ADDRESS = 'Requires valid address.'
@@ -99,7 +99,7 @@ contract('ANS', (accounts) => {
   
   describe('assignName', () => {
     it('assigns the name', async () => {
-      const name = '12345678'
+      const name = '1'
       await ansMethods.assignName(name).send({ from: OWNER })
       assert.equal(await ansMethods.resolveName(name).call(), OWNER)
     })
@@ -114,7 +114,7 @@ contract('ANS', (accounts) => {
       ans = await ANS.new(OWNER, { from: OWNER, gas: MAX_GAS })
       ansMethods = ans.contract.methods
 
-      const name = '12345678'
+      const name = 'test'
       try {
         await ansMethods.assignName(name).send({ from: OWNER })
       } catch (err) {
@@ -123,8 +123,8 @@ contract('ANS', (accounts) => {
     })
     
     it('throws if the name is too short', async () => {
-      const name = '1234567'
-      assert.equal(name.length, 7)
+      const name = ''
+      assert.equal(name.length, 0)
 
       try {
         await ansMethods.assignName(name).send({ from: OWNER })
@@ -240,57 +240,6 @@ contract('ANS', (accounts) => {
     })
   })
   
-  describe('setMinLimit', () => {
-    it('sets the name min limit of an address', async () => {
-      assert.equal(await ansMethods.owner().call(), OWNER)
-
-      const limit = 1
-      await ansMethods.setMinLimit(OWNER, limit).send({ from: OWNER })
-      assert.equal(await ansMethods.getMinLimit(OWNER).call(), limit)
-
-      const name = '1'
-      assert.equal(name.length, limit)
-
-      await ansMethods.assignName(name).send({ from: OWNER })
-      assert.equal(await ansMethods.resolveName(name).call(), OWNER)
-    })
-
-    it('throws if trying to call it from a non-owner', async () => {
-      assert.notEqual(await ansMethods.owner().call(), ACCT1)
-
-      try {
-        await ansMethods.setMinLimit(OWNER, 1).send({ from: ACCT1 })
-      } catch (err) {
-        sassert.revert(err, ERR_ONLY_OWNER)
-      }
-    })
-
-    it('throws if storage address is not set', async () => {
-      ans = await ANS.new(OWNER, { from: OWNER, gas: MAX_GAS })
-      ansMethods = ans.contract.methods
-
-      try {
-        await ansMethods.setMinLimit(OWNER, 1).send({ from: OWNER })
-      } catch (err) {
-        sassert.revert(err, ERR_STORAGE_NOT_SET)
-      }
-    })
-
-    it('throws if the minLimit is not within the allowable range', async () => {
-      try {
-        await ansMethods.setMinLimit(OWNER, 0).send({ from: OWNER })
-      } catch (err) {
-        sassert.revert(err, 'minLength must be between 1 and 8.')
-      }
-
-      try {
-        await ansMethods.setMinLimit(OWNER, 9).send({ from: OWNER })
-      } catch (err) {
-        sassert.revert(err, 'minLength must be between 1 and 8.')
-      }
-    })
-  })
-
   describe('transferStorageOwnership', () => {
     it('should change the storage owner', async () => {
       assert.equal(await storage.contract.methods.owner().call(), ansAddr)
@@ -386,29 +335,6 @@ contract('ANS', (accounts) => {
         await ansMethods.resolveName('abc').call()
       } catch (err) {
         sassert.revert(err, ERR_STORAGE_NOT_SET)
-      }
-    })
-  })
-
-  describe('getMinLimit', () => {
-    it('gets the min limit', async () => {
-      const limit = 1
-      await ansMethods.setMinLimit(OWNER, limit).send({ from: OWNER })
-      assert.equal(await ansMethods.getMinLimit(OWNER).call(), limit)
-    })
-
-    it('returns the default min limit if none is set', async () => {
-      assert.equal(await ansMethods.getMinLimit(OWNER).call(), 8)
-    })
-
-    it('throws if storage address is not set', async () => {
-      ans = await ANS.new(OWNER, { from: OWNER, gas: MAX_GAS })
-      ansMethods = ans.contract.methods
-      
-      try {
-        await ansMethods.getMinLimit(OWNER).call()
-      } catch (err) {
-        sassert.revert(err)
       }
     })
   })
