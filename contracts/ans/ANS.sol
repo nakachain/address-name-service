@@ -46,15 +46,6 @@ contract ANS is Ownable {
         validStorageAddress
         returns (bool success)
     {
-        // Define min limit
-        uint8 storageLimit = IANSStorage(_storageAddress).getMinLimit(msg.sender);
-        uint8 minLimit;
-        if (storageLimit > 0) {
-            minLimit = storageLimit;
-        } else {
-            minLimit = NAME_MIN_LIMIT;
-        }
-        
         // Convert to bytes to check length and characters
         bytes memory nameBytes = name.toBytes();
         // Convert to lowercase
@@ -62,7 +53,7 @@ contract ANS is Ownable {
         string memory lowerName = nameBytes.toString();
 
         // Checks
-        require(nameBytes.length >= minLimit, "name is too short.");
+        require(nameBytes.length >= NAME_MIN_LIMIT, "name is too short.");
         require(nameBytes.length <= NAME_MAX_LIMIT, "name is too long.");
         require(nameBytes.validateNotHex(), "name cannot be a hex string.");
         require(
