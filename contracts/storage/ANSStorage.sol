@@ -30,24 +30,6 @@ contract ANSStorage is IANSStorage, Ownable {
         return true;
     }
 
-    /// @dev Validation should happen in the library contract.
-    ///      Only the owner of this contract can call this.
-    /// @param addr Address to set the limit on.
-    /// @param limit Minimum length of any future added name records.
-    /// @return True if setting the limit succeeds.
-    function setMinLimit(
-        address addr, 
-        uint8 limit) 
-        external 
-        onlyOwner 
-        validAddress(addr)
-        returns (bool success) 
-    {
-        _nameMinLimits[addr] = limit;
-        emit NameLimitSet(addr, limit);
-        return true;
-    }
-
     /// @param name Name to resolve to an address.
     /// @return Address associated with the name.
     function resolveName(

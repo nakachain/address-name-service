@@ -9,7 +9,7 @@ contract ANS is Ownable {
     using Utils for bytes;
     using Utils for string;
 
-    uint8 constant internal NAME_MIN_LIMIT = 8;
+    uint8 constant internal NAME_MIN_LIMIT = 1;
     uint8 constant internal NAME_MAX_LIMIT = 20;
 
     address internal _storageAddress;
@@ -76,26 +76,6 @@ contract ANS is Ownable {
 
         // Call storage contract and assign the name
         return IANSStorage(_storageAddress).assignName(msg.sender, lowerName);
-    }
-
-    /// @dev Sets the name min limit for a given address.
-    /// @param addr Address to set the limit on.
-    /// @param minLimit Minimum length of any future added name records.
-    /// @return True if setting the limit succeeds.
-    function setMinLimit(
-        address addr,
-        uint8 minLimit)
-        external
-        onlyOwner
-        validStorageAddress
-        returns (bool success)
-    {
-        require(
-            minLimit >= 1 && minLimit <= NAME_MIN_LIMIT, 
-            "minLength must be between 1 and 8."
-        );
-
-        return IANSStorage(_storageAddress).setMinLimit(addr, minLimit);
     }
 
     /// @dev Changes the storage owner.
