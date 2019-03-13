@@ -6,6 +6,7 @@ import "../lib/Ownable.sol";
 /// @title Address Name Service Storage contract
 contract ANSStorage is IANSStorage, Ownable {
     mapping(string => address) private _nameRecords;
+    mapping(address => string) private _addressRecords;
 
     /// @param owner Owner of the contract.
     constructor(address owner) Ownable(owner) public validAddress(owner) {
@@ -25,12 +26,15 @@ contract ANSStorage is IANSStorage, Ownable {
         returns (bool success) 
     {
         _nameRecords[name] = addr;
+        _addressRecords[addr] = name;
+
         emit NameAssigned(name, addr);
+        
         return true;
     }
 
     /// @param name Name to resolve to an address.
-    /// @return Address associated with the name.
+    /// @return Resolved address.
     function resolveName(
         string calldata name) 
         external 
@@ -38,5 +42,16 @@ contract ANSStorage is IANSStorage, Ownable {
         returns (address resolved) 
     {
         return _nameRecords[name];
+    }
+
+    /// @param addr Address to resolve to name.
+    /// @return Resolved name.
+    function resolveAddress(
+        address addr)
+        external 
+        view 
+        returns (string memory resolved) 
+    {
+        return _addressRecords[addr];
     }
 }
