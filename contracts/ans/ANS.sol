@@ -124,7 +124,7 @@ contract ANS is Ownable {
         external
         view
         validStorageAddress
-        returns (string resolved)
+        returns (string memory resolved)
     {
         return IANSStorage(_storageAddress).resolveAddress(addr);
     }

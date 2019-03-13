@@ -29,7 +29,7 @@ contract ANSStorage is IANSStorage, Ownable {
         _addressRecords[addr] = name;
 
         emit NameAssigned(name, addr);
-        
+
         return true;
     }
 
