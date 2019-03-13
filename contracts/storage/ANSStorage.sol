@@ -6,7 +6,6 @@ import "../lib/Ownable.sol";
 /// @title Address Name Service Storage contract
 contract ANSStorage is IANSStorage, Ownable {
     mapping(string => address) private _nameRecords;
-    mapping(address => uint8) private _nameMinLimits;
 
     /// @param owner Owner of the contract.
     constructor(address owner) Ownable(owner) public validAddress(owner) {
@@ -39,16 +38,5 @@ contract ANSStorage is IANSStorage, Ownable {
         returns (address resolved) 
     {
         return _nameRecords[name];
-    }
-
-    /// @param addr Address to find the min limit for.
-    /// @return Min limit of name length.
-    function getMinLimit(
-        address addr) 
-        external 
-        view 
-        returns (uint8 limit) 
-    {
-        return _nameMinLimits[addr];
     }
 }

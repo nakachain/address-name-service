@@ -125,20 +125,4 @@ contract ANS is Ownable {
 
         return IANSStorage(_storageAddress).resolveName(lowerName);
     }
-
-    /// @param addr Address to find the min limit for.
-    /// @return Min limit of name length.
-    function getMinLimit(
-        address addr)
-        external
-        view
-        validStorageAddress
-        returns (uint8 limit)
-    {
-        uint8 limit = IANSStorage(_storageAddress).getMinLimit(addr);
-        if (limit > 0) {
-            return limit;
-        }
-        return NAME_MIN_LIMIT;
-    }
 }
