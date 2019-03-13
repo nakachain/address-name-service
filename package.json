@@ -1,7 +1,7 @@
 {
   "name": "address-name-service",
   "version": "1.0.0",
-  "description": "Contract that resolves human readable names and translates to native addresses",
+  "description": "Blockchain address resolver",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ghuchain/address-name-service.git"
+    "url": "git+https://github.com/nakachain/address-name-service.git"
   },
-  "author": "Deric Walintukan <deric@ghuchain.com>",
+  "author": "Deric Walintukan <deric@nakachain.org>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ghuchain/address-name-service/issues"
+    "url": "https://github.com/nakachain/address-name-service/issues"
   },
-  "homepage": "https://github.com/ghuchain/address-name-service#readme",
+  "homepage": "https://github.com/nakachain/address-name-service#readme",
   "devDependencies": {
     "bluebird": "^3.5.3",
     "chai": "^4.2.0",
