@@ -101,7 +101,7 @@ contract ANS is Ownable {
     }
 
     /// @param name Name to resolve to an address.
-    /// @return Address associated with the name.
+    /// @return Resolved address.
     function resolveName(
         string calldata name)
         external
@@ -115,5 +115,17 @@ contract ANS is Ownable {
         string memory lowerName = nameBytes.toString();
 
         return IANSStorage(_storageAddress).resolveName(lowerName);
+    }
+
+    /// @param addr Address to resolve to name.
+    /// @return Resolved name.
+    function resolveAddress(
+        address addr)
+        external
+        view
+        validStorageAddress
+        returns (string resolved)
+    {
+        return IANSStorage(_storageAddress).resolveAddress(addr);
     }
 }
