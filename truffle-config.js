@@ -18,10 +18,10 @@
  *
  */
 
-const HDWalletProvider = require('truffle-hdwallet-provider')
-const fs = require('fs')
+// const HDWalletProvider = require('truffle-hdwallet-provider')
+// const fs = require('fs')
 
-const mnemonic = fs.readFileSync('.secret').toString().trim()
+// const mnemonic = fs.readFileSync('.secret').toString().trim()
 
 module.exports = {
   /**
@@ -41,15 +41,15 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-    testnet: {
-      // host: "api.ghuchain.com/testnet",  // Localhost (default: none)
-      // port: 80,                          // Standard Ethereum port (default: none)
-      network_id: "8899",                   // Any network (default: none)
-      gas: 4700000,
-      provider: () => {
-        return new HDWalletProvider(mnemonic, "https://api.ghuchain.com/testnet")
-      },
-    },
+    // testnet: {
+    //   // host: "api.ghuchain.com/testnet",  // Localhost (default: none)
+    //   // port: 80,                          // Standard Ethereum port (default: none)
+    //   network_id: "8899",                   // Any network (default: none)
+    //   gas: 4700000,
+    //   provider: () => {
+    //     return new HDWalletProvider(mnemonic, "https://api.ghuchain.com/testnet")
+    //   },
+    // },
 
     // Another network with more advanced options...
     // advanced: {
