@@ -9,7 +9,7 @@ const ANS = artifacts.require('ANS')
 
 const web3 = global.web3
 
-contract.only('ANS', (accounts) => {
+contract('ANS', (accounts) => {
   const { OWNER, ACCT1, INVALID_ADDR, MAX_GAS } = getConstants(accounts)
   const ERR_ONLY_OWNER = 'Owner is only allowed to call this method.'
   const ERR_VALID_ADDRESS = 'Requires valid address.'

@@ -8,7 +8,7 @@ const ANSStorage = artifacts.require('ANSStorage')
 const web3 = global.web3
 
 contract('ANSStorage', (accounts) => {
-  const { OWNER, ACCT1, ACCT2, INVALID_ADDR, MAX_GAS } = getConstants(accounts)
+  const { OWNER, ACCT1, INVALID_ADDR, MAX_GAS } = getConstants(accounts)
   const timeMachine = new TimeMachine(web3)
   
   let storage, storageMethods
