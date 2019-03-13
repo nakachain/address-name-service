@@ -340,4 +340,23 @@ contract.only('ANS', (accounts) => {
       }
     })
   })
+
+  describe('resolveAddress', () => {
+    it('resolves the address', async () => {
+      const name = 'test'
+      await ansMethods.assignName(name).send({ from: OWNER })
+      assert.equal(await ansMethods.resolveAddress(OWNER).call(), name)
+    })
+
+    it('throws if storage address is not set', async () => {
+      ans = await ANS.new(OWNER, { from: OWNER, gas: MAX_GAS })
+      ansMethods = ans.contract.methods
+      
+      try {
+        await ansMethods.resolveAddress(OWNER).call()
+      } catch (err) {
+        sassert.revert(err, ERR_STORAGE_NOT_SET)
+      }
+    })
+  })
 })
