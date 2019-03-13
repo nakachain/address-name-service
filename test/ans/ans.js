@@ -107,7 +107,9 @@ contract.only('ANS', (accounts) => {
     it('converts the name to lowercase', async () => {
       const name = 'ABCDEFGH'
       await ansMethods.assignName(name).send({ from: OWNER })
-      assert.equal(await ansMethods.resolveName(name).call(), OWNER)
+
+      const lower = 'abcdefgh'
+      assert.equal(await ansMethods.resolveName(lower).call(), OWNER)
     })
 
     it('throws if storage address is not set', async () => {
@@ -227,7 +229,7 @@ contract.only('ANS', (accounts) => {
     })
 
     it('throws if the name is taken', async () => {
-      const name = '1234567890'
+      const name = 'test'
 
       await ansMethods.assignName(name).send({ from: OWNER })
       assert.equal(await ansMethods.resolveName(name).call(), OWNER)
