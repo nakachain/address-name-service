@@ -1,0 +1,31 @@
+{
+  "name": "address-name-service",
+  "version": "1.0.0",
+  "description": "Blockchain address resolver",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nakachain/address-name-service.git"
+  },
+  "author": "Deric Walintukan <deric@nakachain.org>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nakachain/address-name-service/issues"
+  },
+  "homepage": "https://github.com/nakachain/address-name-service#readme",
+  "devDependencies": {
+    "bluebird": "^3.5.3",
+    "chai": "^4.2.0",
+    "sol-assert": "^1.1.1",
+    "sol-time-machine": "^1.0.0"
+  },
+  "dependencies": {
+    "truffle-hdwallet-provider": "^1.0.5"
+  }
+}
