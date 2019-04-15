@@ -104,7 +104,7 @@ contract('ANS', (accounts) => {
       assert.equal(await ansMethods.resolveName(name).call(), OWNER)
     })
 
-    it.only('converts the name to lowercase', async () => {
+    it('converts the name to lowercase', async () => {
       const name = 'ABCDEFGH'
       await ansMethods.assignName(name).send({ from: OWNER })
 

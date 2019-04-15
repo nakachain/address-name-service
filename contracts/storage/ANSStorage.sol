@@ -47,6 +47,8 @@ contract ANSStorage is IANSStorage, Ownable {
         return _nameRecords[name];
     }
 
+    /// @param addr Address to check if assigned.
+    /// @return If address has been assigned.
     function isAddressAssigned(
         address addr)
         external
@@ -57,7 +59,7 @@ contract ANSStorage is IANSStorage, Ownable {
         bytes memory nameBytes = name.toBytes();
         return nameBytes.length > 0;
     }
-
+    
     /// @param addr Address to resolve to name.
     /// @return Resolved name.
     function resolveAddress(
