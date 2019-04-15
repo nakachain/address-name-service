@@ -240,6 +240,20 @@ contract('ANS', (accounts) => {
         sassert.revert(err, 'name is already taken.')
       }
     })
+
+    it('throws if the address has been assigned', async () => {
+      const name = 'test'
+
+      await ansMethods.assignName(name).send({ from: OWNER })
+      assert.equal(await ansMethods.resolveAddress(OWNER).call(), name)
+      assert.equal(await ansMethods.resolveName(name).call(), OWNER)
+
+      try {
+        await ansMethods.assignName(name).send({ from: OWNER })
+      } catch (err) {
+        sassert.revert(err, 'address is already assigned.')
+      }
+    })
   })
   
   describe('transferStorageOwnership', () => {

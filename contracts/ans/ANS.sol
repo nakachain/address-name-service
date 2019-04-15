@@ -57,11 +57,15 @@ contract ANS is Ownable {
         require(nameBytes.length <= NAME_MAX_LIMIT, "name is too long.");
         require(nameBytes.validateNotHex(), "name cannot be a hex string.");
         require(
-            nameBytes.validateLettersAndNumbers(), 
+            nameBytes.validateLettersAndNumbers(),
             "name contains invalid characters."
         );
         require(
-            IANSStorage(_storageAddress).resolveName(lowerName) == address(0), 
+            (IANSStorage(_storageAddress).resolveAddress(msg.sender)).equal(""),
+            "address is already assigned."
+        );
+        require(
+            IANSStorage(_storageAddress).resolveName(lowerName) == address(0),
             "name is already taken."
         );
 
