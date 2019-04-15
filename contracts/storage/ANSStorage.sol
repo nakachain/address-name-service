@@ -2,9 +2,12 @@ pragma solidity ^0.5.4;
 
 import "./IANSStorage.sol";
 import "../lib/Ownable.sol";
+import "../lib/Utils.sol";
 
 /// @title Address Name Service Storage contract
 contract ANSStorage is IANSStorage, Ownable {
+    using Utils for string;
+
     mapping(string => address) private _nameRecords;
     mapping(address => string) private _addressRecords;
 
@@ -44,11 +47,22 @@ contract ANSStorage is IANSStorage, Ownable {
         return _nameRecords[name];
     }
 
+    function isAddressAssigned(
+        address addr)
+        external
+        view
+        returns (bool assigned)
+    {
+        string memory name = resolveAddress(addr);
+        bytes memory nameBytes = name.toBytes();
+        return nameBytes.length > 0;
+    }
+
     /// @param addr Address to resolve to name.
     /// @return Resolved name.
     function resolveAddress(
         address addr)
-        external 
+        public 
         view 
         returns (string memory resolved) 
     {

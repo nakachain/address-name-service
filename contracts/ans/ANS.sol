@@ -61,7 +61,7 @@ contract ANS is Ownable {
             "name contains invalid characters."
         );
         require(
-            (IANSStorage(_storageAddress).resolveAddress(msg.sender)).equal(""),
+            !IANSStorage(_storageAddress).isAddressAssigned(msg.sender),
             "address is already assigned."
         );
         require(

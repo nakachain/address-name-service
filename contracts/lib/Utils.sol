@@ -48,30 +48,4 @@ library Utils {
     function toString(bytes memory b) internal pure returns (string memory) {
         return string(b);
     }
-
-    /// @dev Does a byte-by-byte lexicographical comparison of two strings.
-    /// @return a negative number if `a` is smaller, zero if they are equal,
-    ///         and a positive number if `b` is smaller.
-    function compare(string memory a, string memory b) internal pure returns (int) {
-        bytes memory bytesA = bytes(a);
-        bytes memory bytesB = bytes(b);
-        uint minLength = bytesA.length;
-        if (bytesB.length < minLength) minLength = bytesB.length;
-        for (uint i = 0; i < minLength; i ++)
-            if (bytesA[i] < bytesB[i])
-                return -1;
-            else if (bytesA[i] > bytesB[i])
-                return 1;
-        if (bytesA.length < bytesB.length)
-            return -1;
-        else if (bytesA.length > bytesB.length)
-            return 1;
-        else
-            return 0;
-    }
-
-    /// @dev Compares two strings and returns true if they are equal.
-    function equal(string memory a, string memory b) internal pure returns (bool) {
-        return compare(a, b) == 0;
-    }
 }
