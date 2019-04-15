@@ -47,6 +47,28 @@ contract ANSStorage is IANSStorage, Ownable {
         return _nameRecords[name];
     }
 
+    /// @param addr Address to resolve to name.
+    /// @return Resolved name.
+    function resolveAddress(
+        address addr)
+        external 
+        view 
+        returns (string memory resolved) 
+    {
+        return _addressRecords[addr];
+    }
+
+    /// @param name Name to check if assigned.
+    /// @return If name has been assigned.
+    function isNameAssigned(
+        string calldata name)
+        external
+        view
+        returns (bool assigned)
+    {
+        return _nameRecords[name] != address(0);
+    }
+
     /// @param addr Address to check if assigned.
     /// @return If address has been assigned.
     function isAddressAssigned(
@@ -55,19 +77,8 @@ contract ANSStorage is IANSStorage, Ownable {
         view
         returns (bool assigned)
     {
-        string memory name = resolveAddress(addr);
+        string memory name = _addressRecords[addr];
         bytes memory nameBytes = name.toBytes();
         return nameBytes.length > 0;
-    }
-    
-    /// @param addr Address to resolve to name.
-    /// @return Resolved name.
-    function resolveAddress(
-        address addr)
-        public 
-        view 
-        returns (string memory resolved) 
-    {
-        return _addressRecords[addr];
     }
 }

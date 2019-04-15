@@ -65,7 +65,7 @@ contract ANS is Ownable {
             "address is already assigned."
         );
         require(
-            IANSStorage(_storageAddress).resolveName(lowerName) == address(0),
+            !IANSStorage(_storageAddress).isNameAssigned(lowerName),
             "name is already taken."
         );
 
