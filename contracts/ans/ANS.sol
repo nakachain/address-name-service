@@ -1,4 +1,4 @@
-pragma solidity ^0.5.4;
+pragma solidity ^0.5.7;
 
 import "../storage/IANSStorage.sol";
 import "../lib/Ownable.sol";
@@ -57,11 +57,15 @@ contract ANS is Ownable {
         require(nameBytes.length <= NAME_MAX_LIMIT, "name is too long.");
         require(nameBytes.validateNotHex(), "name cannot be a hex string.");
         require(
-            nameBytes.validateLettersAndNumbers(), 
+            nameBytes.validateLettersAndNumbers(),
             "name contains invalid characters."
         );
         require(
-            IANSStorage(_storageAddress).resolveName(lowerName) == address(0), 
+            !IANSStorage(_storageAddress).isAddressAssigned(msg.sender),
+            "address is already assigned."
+        );
+        require(
+            !IANSStorage(_storageAddress).isNameAssigned(lowerName),
             "name is already taken."
         );
 

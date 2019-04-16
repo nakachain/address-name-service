@@ -1,10 +1,13 @@
-pragma solidity ^0.5.4;
+pragma solidity ^0.5.7;
 
 import "./IANSStorage.sol";
 import "../lib/Ownable.sol";
+import "../lib/Utils.sol";
 
 /// @title Address Name Service Storage contract
 contract ANSStorage is IANSStorage, Ownable {
+    using Utils for string;
+
     mapping(string => address) private _nameRecords;
     mapping(address => string) private _addressRecords;
 
@@ -53,5 +56,29 @@ contract ANSStorage is IANSStorage, Ownable {
         returns (string memory resolved) 
     {
         return _addressRecords[addr];
+    }
+
+    /// @param name Name to check if assigned.
+    /// @return If name has been assigned.
+    function isNameAssigned(
+        string calldata name)
+        external
+        view
+        returns (bool assigned)
+    {
+        return _nameRecords[name] != address(0);
+    }
+
+    /// @param addr Address to check if assigned.
+    /// @return If address has been assigned.
+    function isAddressAssigned(
+        address addr)
+        external
+        view
+        returns (bool assigned)
+    {
+        string memory name = _addressRecords[addr];
+        bytes memory nameBytes = name.toBytes();
+        return nameBytes.length > 0;
     }
 }

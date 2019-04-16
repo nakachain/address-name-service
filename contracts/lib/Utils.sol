@@ -1,4 +1,4 @@
-pragma solidity ^0.5.4;
+pragma solidity ^0.5.7;
 
 library Utils {
     function validateNotHex(bytes memory b) internal pure returns (bool) {
